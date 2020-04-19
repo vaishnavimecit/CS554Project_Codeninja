@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for make-a-change",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaishnavimecit/CS554Project_Codeninja.git"
+  },
+  "author": "Adam Undus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaishnavimecit/CS554Project_Codeninja/issues"
+  },
+  "homepage": "https://github.com/vaishnavimecit/CS554Project_Codeninja#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "firebase-admin": "^8.10.0",
+    "schema-inspector": "^1.6.9",
+    "uuid": "^7.0.3"
+  }
+}
