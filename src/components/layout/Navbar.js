@@ -73,8 +73,8 @@ class Navbar extends Component {
             </ul>
             <ul className="navbar-nav flex-row ml-md-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  Login
+                <a className="nav-link" href="/signin">
+                  Sign In
                 </a>
               </li>
               <li className="nav-item">
