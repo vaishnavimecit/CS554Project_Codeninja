@@ -60,14 +60,14 @@ function SignIn() {
 					</label>
 				</div>
 				<button type='submit'>Log in</button>
-
+				&nbsp;
 				<button className='forgotPassword' onClick={passwordReset}>
 					Forgot Password
 				</button>
 			</form>
 
 			<br />
-			<SocialSignIn />
+			
 		</div>
 	);
 }
