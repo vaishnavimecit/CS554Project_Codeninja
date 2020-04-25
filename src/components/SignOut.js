@@ -1,12 +1,14 @@
-import React from 'react';
-import { doSignOut } from '../firebase/FirebaseFunctions';
+import React from "react";
+import { doSignOut } from "../firebase/FirebaseFunctions";
 
 const SignOutButton = () => {
-	return (
-		<button type='button' onClick={doSignOut}>
-			Sign Out
-		</button>
-	);
+  return (
+    <li className="nav-item">
+      <a className="nav-link" onClick={doSignOut}>
+        Sign Out
+      </a>
+    </li>
+  );
 };
 
 export default SignOutButton;

@@ -1,22 +1,43 @@
 const firebaseUtils = require("./firebaseUtils");
 const inspector = require("schema-inspector");
 const firebase = require("firebase-admin");
+const axios = require("axios");
 
 const schema = {
   strict: true,
   type: "object",
   properties: {
     name: {
+      type: "object",
+      properties: {
+        first: { type: "string" },
+        last: { type: "string" },
+      },
+    },
+    email: {
       type: "string",
+    },
+    zip: {
+      type: "string",
+    },
+    city: {
+      type: "string",
+      optional: true,
+    },
+    state: {
+      type: "string",
+      optional: true,
     },
     location: {
       type: "obejct",
+      optional: true,
       properties: {
         latitude: { type: "number" },
         longitude: { type: "number" },
       },
     },
     items: {
+      optional: true,
       type: "array",
       items: {
         type: "string",
@@ -67,9 +88,12 @@ async function createNew(newDonorObj) {
     throw new Error(validation.format());
   }
   delete newDonorObj.id;
+  const geo = await axios.get(
+    `http://localhost:3001/locations/coordinates/${newDonorObj.zip}`
+  );
   newDonorObj.location = new firebase.firestore.GeoPoint(
-    newDonorObj.location.latitude,
-    newDonorObj.location.longitude
+    geo.data.latitude,
+    geo.data.longitude
   );
   try {
     const client = await firebaseUtils.getClient();
@@ -86,9 +110,3 @@ module.exports = {
   getById,
   createNew,
 };
-
-createNew({
-  name: "Adam U",
-  location: { latitude: 12.15, longitude: -12.05 },
-  items: ["gloves", "scrubs"],
-});

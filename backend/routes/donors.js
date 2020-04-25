@@ -12,4 +12,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const donor = await donorData.createNew(req.body);
+    res.json(donor);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json(e);
+  }
+});
+
 module.exports = router;
