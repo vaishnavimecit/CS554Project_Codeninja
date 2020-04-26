@@ -21,7 +21,6 @@ function SignUp() {
       e.stopPropagation();
     }
 
-    setValidated(true);
     e.preventDefault();
     const {
       first,
@@ -33,10 +32,38 @@ function SignUp() {
       passwordOne,
       passwordTwo,
     } = e.target.elements;
-    if (passwordOne.value !== passwordTwo.value) {
+
+    if (
+      first.value.trim() === "" ||
+      last.value.trim() === "" ||
+      city.value.trim() === "" ||
+      zip.value.trim() === "" ||
+      state.value.trim() === "" ||
+      email.value.trim() === ""
+    ) {
+      setMessage(generateAlert("All form fields are required", "warning"));
+      return false;
+    }
+    if (
+      passwordOne.value !== passwordTwo.value &&
+      passwordOne.value.trim() !== ""
+    ) {
       setMessage(generateAlert("Passwords do not match", "danger"));
       return false;
     }
+
+    if (zip.value.length < 4 || zip.value.length > 6) {
+      setMessage(generateAlert("Invalid Zip Code", "danger"));
+      return false;
+    }
+    if (passwordOne.value.length < 8) {
+      setMessage(
+        generateAlert("Password must be at least 8 characters long.", "danger")
+      );
+      return false;
+    }
+
+    setValidated(true);
 
     try {
       await doCreateUserWithEmailAndPassword(email.value, passwordOne.value, {
@@ -52,7 +79,12 @@ function SignUp() {
       if (typeof error === "string") {
         setMessage(generateAlert(error, "danger"));
       } else {
-        setMessage(generateAlert(error.message, "danger"));
+        setMessage(
+          generateAlert(
+            error.message ? error.message : JSON.stringify(error),
+            "danger"
+          )
+        );
       }
     }
   };
@@ -107,7 +139,7 @@ function SignUp() {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} md="3" controlId="validationCustom05">
-                <Form.Label>Zip</Form.Label>
+                <Form.Label>Zip Code</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Zip"

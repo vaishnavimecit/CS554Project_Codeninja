@@ -10,15 +10,17 @@ const schema = {
     name: {
       type: "object",
       properties: {
-        first: { type: "string" },
-        last: { type: "string" },
+        first: { type: "string", minLength: 1 },
+        last: { type: "string", minLength: 1 },
       },
     },
     email: {
       type: "string",
+      minLength: 3,
     },
     zip: {
       type: "string",
+      minLength: 4,
     },
     city: {
       type: "string",
@@ -82,6 +84,35 @@ async function getById(id) {
   }
 }
 
+async function getByEmail(email) {
+  if (!email) {
+    throw new Error("emial field required");
+  }
+  try {
+    const client = await firebaseUtils.getClient();
+    const colRef = client.collection("donors");
+    const docRef = colRef.where("email", "==", email);
+    const snapshot = await docRef.get();
+    let oneDoc = false;
+    let document;
+    snapshot.forEach((doc) => {
+      if (oneDoc) {
+        throw new Error("Duplicate Documents for email " + email);
+      }
+      oneDoc = true;
+      document = { id: doc.id, ...doc.data() };
+    });
+
+    if (document) {
+      return document;
+    } else {
+      throw new Error(`Document with email ${email} does not exist.`);
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
 async function createNew(newDonorObj) {
   const validation = inspector.validate(schema, newDonorObj);
   if (!validation.valid) {
@@ -109,4 +140,5 @@ module.exports = {
   getAll,
   getById,
   createNew,
+  getByEmail,
 };

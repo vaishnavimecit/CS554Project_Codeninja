@@ -2,19 +2,25 @@ import firebase from "firebase/app";
 import axios from "axios";
 
 async function doCreateUserWithEmailAndPassword(email, password, profileData) {
-  console.log(profileData);
-  const res = await axios.post("http://localhost:3001/donors", {
-    email,
-    ...profileData,
-  });
-  console.log(res.data.body);
-  if (res.status !== 200) {
-    throw new Error(
-      "Error: Undable to create user in database. " + JSON.stringify(res.data)
-    );
+  try {
+    const res = await axios.post("http://localhost:3001/donors", {
+      email,
+      ...profileData,
+    });
+    if (res.status !== 200) {
+      throw new Error(
+        "Error: Unable to create user in database. " + JSON.stringify(res.data)
+      );
+    }
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    firebase.auth().currentUser.updateProfile(profileData);
+  } catch (e) {
+    console.log(e.message);
+    if (e.message === "Request failed with status code 500") {
+      throw new Error("Error: Unable to create user in database.");
+    }
+    throw e;
   }
-  await firebase.auth().createUserWithEmailAndPassword(email, password);
-  firebase.auth().currentUser.updateProfile(profileData);
 }
 
 async function doChangePassword(email, oldPassword, newPassword) {

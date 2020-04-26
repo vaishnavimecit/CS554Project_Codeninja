@@ -1,29 +1,29 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import signin from "./components/SignIn"
-import signup from "./components/SignUp"
+import signin from "./components/SignIn";
+import signup from "./components/SignUp";
+import hospitals from "./components/Hospitals";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import { AuthProvider } from './firebase/Auth';
-
+import { AuthProvider } from "./firebase/Auth";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
     <AuthProvider>
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="container mx-auto">
-          <Route path="/" exact component={Home} />
-          <Route path="/signin" exact component={signin} />
-          <Route path="/sign-up" exact component={signup} />
-
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container mx-auto">
+            <Route path="/" exact component={Home} />
+            <Route path="/signin" exact component={signin} />
+            <Route path="/sign-up" exact component={signup} />
+            <Route path="/hospitals" exact component={hospitals} />
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
     </AuthProvider>
   );
 }
