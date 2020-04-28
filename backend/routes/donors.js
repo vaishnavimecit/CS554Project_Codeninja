@@ -12,6 +12,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/email/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    const donor = await donorData.getByEmail(email);
+    res.json(donor);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json(e);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const donor = await donorData.createNew(req.body);
