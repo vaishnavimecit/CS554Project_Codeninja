@@ -54,13 +54,6 @@ const schema = {
         longitude: { type: "number" },
       },
     },
-    requestedItems: {
-      optional: true,
-      type: "array",
-      items: {
-        type: "string",
-      },
-    },
     id: { type: "string", optional: true },
   },
 };

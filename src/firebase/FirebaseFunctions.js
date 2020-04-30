@@ -3,6 +3,8 @@ import axios from "axios";
 
 async function createDonor(email, password, profileData) {
   try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    firebase.auth().currentUser.updateProfile(profileData);
     const res = await axios.post("http://localhost:3001/donors", {
       email,
       ...profileData,
@@ -12,8 +14,6 @@ async function createDonor(email, password, profileData) {
         "Error: Unable to create user in database. " + JSON.stringify(res.data)
       );
     }
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
-    firebase.auth().currentUser.updateProfile(profileData);
   } catch (e) {
     console.log(e.message);
     if (e.message === "Request failed with status code 500") {
@@ -25,6 +25,8 @@ async function createDonor(email, password, profileData) {
 
 async function createHospital(email, password, profileData) {
   try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    firebase.auth().currentUser.updateProfile(profileData);
     const res = await axios.post("http://localhost:3001/hospitals", {
       email,
       ...profileData,
@@ -34,8 +36,6 @@ async function createHospital(email, password, profileData) {
         "Error: Unable to create user in database. " + JSON.stringify(res.data)
       );
     }
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
-    firebase.auth().currentUser.updateProfile(profileData);
   } catch (e) {
     console.log(e.message);
     if (e.message === "Request failed with status code 500") {
