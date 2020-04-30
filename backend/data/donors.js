@@ -38,11 +38,22 @@ const schema = {
         longitude: { type: "number" },
       },
     },
+    delivery: {
+      type: "string",
+    },
+    phone: {
+      type: "number",
+      optional: true,
+    },
     items: {
       optional: true,
       type: "array",
       items: {
-        type: "string",
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          quantity: { type: "number" },
+        },
       },
     },
     id: { type: "string", optional: true },

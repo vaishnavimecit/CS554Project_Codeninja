@@ -28,6 +28,8 @@ function SignUp() {
 
     e.preventDefault();
     const {
+      delivery,
+      phone,
       first,
       last,
       city,
@@ -68,18 +70,44 @@ function SignUp() {
       return false;
     }
 
+    const items = [];
+    for (let i = 0; i <= entries.length; i++) {
+      if (
+        e.target.elements[`item${i}`].value.trim() === "" ||
+        e.target.elements[`quantity${i}`].value.trim() === ""
+      ) {
+        continue;
+      }
+      items.push({
+        name: e.target.elements[`item${i}`].value,
+        quantity: parseInt(e.target.elements[`quantity${i}`].value),
+      });
+    }
+
     setValidated(true);
+    const newDonor = {
+      items: items,
+      delivery: delivery.value,
+      city: city.value,
+      state: state.value,
+      name: {
+        first: first.value,
+        last: last.value,
+      },
+      zip: zip.value,
+    };
+
+    if (phone.value.trim() !== "") {
+      if (phone.value.length < 8 || phone.value.length > 12) {
+        setMessage(generateAlert("Invalid Phone Number.", "danger"));
+        return false;
+      } else {
+        newDonor.phone = parseInt(phone.value);
+      }
+    }
 
     try {
-      await createDonor(email.value, passwordOne.value, {
-        city: city.value,
-        state: state.value,
-        name: {
-          first: first.value,
-          last: last.value,
-        },
-        zip: zip.value,
-      });
+      await createDonor(email.value, passwordOne.value, newDonor);
     } catch (error) {
       if (typeof error === "string") {
         setMessage(generateAlert(error, "danger"));
@@ -147,16 +175,16 @@ function SignUp() {
       return false;
     }
     const requestedItems = [];
-    for (let i = 1; i <= entries.length; i++) {
+    for (let i = 0; i <= entries.length; i++) {
       if (
         e.target.elements[`item${i}`].value.trim() === "" ||
-        e.target.elements[`item${i}`].value.trim() === ""
+        e.target.elements[`quantity${i}`].value.trim() === ""
       ) {
         continue;
       }
       requestedItems.push({
-        name: e.target.elements[`item${i}`],
-        quantity: parseInt(e.target.elements[`quantity${i}`]),
+        name: e.target.elements[`item${i}`].value,
+        quantity: parseInt(e.target.elements[`quantity${i}`].value),
       });
     }
 
@@ -230,6 +258,7 @@ function SignUp() {
     } else {
       setOtherType("Hospital/Clinic");
     }
+    setEntries([]);
   }
 
   function getDonorForm() {
@@ -276,13 +305,60 @@ function SignUp() {
         <hr></hr>
         <Row>
           <Col>
+            <Form.Label>List Specific Items Are Able to Donate:</Form.Label>
+            <Form.Control
+              placeholder="N95 Masks, Gloves, Scrubs, etc"
+              required
+              type="text"
+              name="item0"
+            />
+          </Col>
+          <Col>
+            <Form.Label>How Many Can You Donate?</Form.Label>
+            <Form.Control
+              placeholder="Number of Items"
+              required
+              type="number"
+              name="quantity0"
+            />
+          </Col>
+        </Row>
+        {entries}
+        <Button
+          id="addRow"
+          variant="outline-success"
+          name="addRowBtn"
+          onClick={addRow}
+        >
+          Add Row
+        </Button>
+        <Row>
+          <Col>
+            <Form.Label>What Is Your Preffered Delivery Method?</Form.Label>
+            <Form.Control as="select" name="delivery">
+              <option>Drop Off At Hospital/Clinic</option>
+              <option>Send via Mail</option>
+            </Form.Control>
+          </Col>
+        </Row>
+        <hr></hr>
+        <Row>
+          <Col>
             <Form.Label>Email</Form.Label>
             <Form.Control
               placeholder="Email"
               required
               name="email"
               type="email"
-              placeholder="Email"
+            />
+          </Col>
+          <Col>
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              placeholder="Phone Number (optional)"
+              required
+              name="phone"
+              type="number"
             />
           </Col>
         </Row>
@@ -390,7 +466,7 @@ function SignUp() {
               placeholder="N95 Masks, Gloves, Scrubs, etc"
               required
               type="text"
-              name="item1"
+              name="item0"
             />
           </Col>
           <Col>
@@ -399,7 +475,7 @@ function SignUp() {
               placeholder="Number of Items"
               required
               type="number"
-              name="quantity1"
+              name="quantity0"
             />
           </Col>
         </Row>
@@ -421,7 +497,15 @@ function SignUp() {
               required
               name="email"
               type="email"
-              placeholder="Email"
+            />
+          </Col>
+          <Col>
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              placeholder="Phone Number (optional)"
+              required
+              name="phone"
+              type="number"
             />
           </Col>
         </Row>
