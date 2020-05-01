@@ -15,6 +15,11 @@ router.get("/coordinates/:zipcode", async (req, res) => {
       method: "get",
       url: `https://maps.googleapis.com/maps/api/geocode/json?key=${mapsKey}&components=postal_code:${zipcode}`,
     });
+    if (zipRes.data.status !== "OK") {
+      throw new Error(
+        "Invalid Status returned from GoogleAPI " + zipRes.data.status
+      );
+    }
     const longitude = zipRes.data.results[0].geometry.location.lng;
     const latitude = zipRes.data.results[0].geometry.location.lat;
     const address = zipRes.data.results[0].formatted_address;
