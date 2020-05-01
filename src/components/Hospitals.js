@@ -3,7 +3,7 @@ import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
@@ -11,12 +11,13 @@ function Hospitals() {
   const { currentUser } = useContext(AuthContext);
   const [message, setMessage] = useState(undefined);
   const [displayData, setDisplayData] = useState(undefined);
+  const [zipcode, setZipCode] = useState(undefined);
   let email = null;
   let content = null;
-  let zipcode = null;
 
   useEffect(() => {
     async function getData() {
+      console.log("render");
       try {
         if (currentUser && !zipcode) {
           email = currentUser.email;
@@ -24,6 +25,13 @@ function Hospitals() {
           const hospitals = await getHospitals(
             user.location._longitude,
             user.location._latitude
+          );
+          setDisplayData(hospitals);
+        } else if (zipcode) {
+          const location = await getLocationByZip(zipcode);
+          const hospitals = await getHospitals(
+            location.longitude,
+            location.latitude
           );
           setDisplayData(hospitals);
         }
@@ -36,32 +44,17 @@ function Hospitals() {
       }
     }
     getData();
-  }, [displayData]);
+  }, [zipcode]);
 
   async function handleSearch(e) {
     e.preventDefault();
-    console.log(e.target.elements);
     const { zip } = e.target.elements;
 
     if (zip.value.trim() === "" || zip.value.trim().length < 4) {
       setMessage(generateAlert("Invalid Zip Code", "danger"));
       return false;
     }
-    try {
-      zipcode = zip;
-      const location = await getLocationByZip(zipcode);
-      const hospitals = await getHospitals(
-        location.longitude,
-        location.latitude
-      );
-      setDisplayData(hospitals);
-    } catch (e) {
-      if (typeof error === "string") {
-        setMessage(generateAlert(e, "danger"));
-      } else {
-        setMessage(generateAlert(JSON.stringify(e), "danger"));
-      }
-    }
+    setZipCode(zip.value);
   }
 
   function generateAlert(message, variant) {
@@ -127,23 +120,22 @@ function Hospitals() {
   return (
     <div>
       {message}
-      <InputGroup className="mb-3">
-        <FormControl
-          placeholder="Search Hospitals By Zipcode"
-          aria-label="Search Hospitals By Zipcode"
-          aria-describedby="basic-addon2"
-          name="zip"
-        />
-        <InputGroup.Append>
-          <Button
-            variant="outline-success"
-            type="submit"
-            onClick={handleSearch}
-          >
-            Search
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
+      <Form onSubmit={handleSearch}>
+        <InputGroup className="mb-3">
+          <Form.Control
+            placeholder="Search Hospitals By Zipcode"
+            aria-label="Search Hospitals By Zipcode"
+            aria-describedby="basic-addon2"
+            name="zip"
+          />
+          <InputGroup.Append>
+            <Button variant="outline-success" type="submit">
+              Search
+            </Button>
+          </InputGroup.Append>
+        </InputGroup>
+      </Form>
+
       <hr></hr>
       {content}
     </div>
