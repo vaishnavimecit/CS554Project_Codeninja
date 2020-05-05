@@ -50,10 +50,14 @@ router.get("/hospitals", async (req, res) => {
   try {
     const locRes = await axios({
       method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${mapsKey}&location=${latitude},${longitude}&radius=20000&type=hospital`,
+      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${mapsKey}&location=${latitude},${longitude}&rankby=distance&type=hospital`,
     });
     const hospitals = [];
+    const addresses = {};
     locRes.data.results.forEach((hospital) => {
+      if (addresses[hospital.vicinity]) {
+        return;
+      }
       hospitals.push({
         name: hospital.name,
         location: {
@@ -64,6 +68,7 @@ router.get("/hospitals", async (req, res) => {
         address: hospital.vicinity,
         icon: hospital.icon,
       });
+      addresses[hospital.vicinity] = true;
     });
     res.json(hospitals);
   } catch (e) {

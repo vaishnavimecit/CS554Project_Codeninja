@@ -17,7 +17,6 @@ function Hospitals() {
 
   useEffect(() => {
     async function getData() {
-      console.log("render");
       try {
         if (currentUser && !zipcode) {
           email = currentUser.email;

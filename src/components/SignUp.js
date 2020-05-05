@@ -218,7 +218,7 @@ function SignUp() {
   };
 
   if (currentUser) {
-    return <Redirect to="/" />;
+    return <Redirect to="/hospitals/setg_id" />;
   }
   function generateAlert(message, variant) {
     return <Alert variant={variant}>{message}</Alert>;
