@@ -26,6 +26,10 @@ const schema = {
       type: "string",
       optional: true,
     },
+    google_id: {
+      type: "string",
+      optional: true,
+    },
     urgency: {
       type: "string",
     },
@@ -70,6 +74,21 @@ async function getAll() {
       })
     );
     return hospitals;
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+async function updateGoogleId(id, g_id) {
+  if (!id || !g_id) {
+    throw new Error("Missing required fields to update google id");
+  }
+  try {
+    const client = await firebaseUtils.getClient();
+    const ref = client.collection("hospitals").doc(id);
+    await ref.update({ google_id: g_id });
+    const data = await ref.get();
+    return { id, ...data.data() };
   } catch (e) {
     throw new Error(e);
   }
@@ -150,4 +169,5 @@ module.exports = {
   getById,
   createNew,
   getByEmail,
+  updateGoogleId,
 };
