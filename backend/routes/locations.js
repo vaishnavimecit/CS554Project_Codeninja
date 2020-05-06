@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const serviceAccount = require("../config/serviceAccountKey.json");
 const mapsKey = serviceAccount.google_maps_key;
+const hospitalData = require("../data/hospitals");
 
 router.get("/coordinates/:zipcode", async (req, res) => {
   const zipcode = req.params.zipcode;
@@ -52,13 +53,13 @@ router.get("/hospitals", async (req, res) => {
       method: "get",
       url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${mapsKey}&location=${latitude},${longitude}&rankby=distance&type=hospital`,
     });
-    const hospitals = [];
+    const hospitals = {};
     const addresses = {};
     locRes.data.results.forEach((hospital) => {
       if (addresses[hospital.vicinity]) {
         return;
       }
-      hospitals.push({
+      hospitals[hospital.place_id] = {
         name: hospital.name,
         location: {
           latitude: hospital.geometry.location.lat,
@@ -67,10 +68,20 @@ router.get("/hospitals", async (req, res) => {
         google_id: hospital.place_id,
         address: hospital.vicinity,
         icon: hospital.icon,
-      });
+      };
       addresses[hospital.vicinity] = true;
     });
-    res.json(hospitals);
+    const google_ids = Object.keys(hospitals);
+    const matches = await hospitalData.matchGoogleIds(google_ids);
+    google_ids.forEach((id) => {
+      if (matches[id] !== undefined) {
+        hospitals[id].isSignedUp = true;
+        hospitals[id].data = matches[id];
+      } else {
+        hospitals[id].isSignedUp = false;
+      }
+    });
+    res.json(google_ids.map((id) => hospitals[id]));
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: e });

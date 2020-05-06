@@ -141,6 +141,33 @@ async function getByEmail(email) {
   }
 }
 
+async function matchGoogleIds(ids) {
+  if (!Array.isArray(ids)) {
+    throw new Error("Argument must be array of google ids.");
+  }
+  try {
+    const client = await firebaseUtils.getClient();
+    const result = {};
+    for (let i = 0; i < Math.ceil(ids.length / 10); i++) {
+      const chunk = ids.slice(10 * i, 10 * (i + 1));
+      const ref = client
+        .collection("hospitals")
+        .where("google_id", "in", chunk);
+      const snapshot = await ref.get();
+      snapshot.forEach((doc) => {
+        result[doc.data().google_id] = {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+    }
+    return result;
+  } catch (e) {
+    console.log(e);
+    throw new Error(e);
+  }
+}
+
 async function createNew(newHospitalObj) {
   const validation = inspector.validate(schema, newHospitalObj);
   if (!validation.valid) {
@@ -170,4 +197,5 @@ module.exports = {
   createNew,
   getByEmail,
   updateGoogleId,
+  matchGoogleIds,
 };
