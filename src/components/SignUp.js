@@ -499,6 +499,7 @@ function SignUp() {
               type="email"
             />
           </Col>
+
           <Col>
             <Form.Label>Phone</Form.Label>
             <Form.Control
@@ -509,6 +510,10 @@ function SignUp() {
             />
           </Col>
         </Row>
+        <Form.Text className="text-muted">
+          The contact information you provide here will be shared with potential
+          donors.
+        </Form.Text>
         <Row>
           <Col>
             <Form.Label>Password</Form.Label>
