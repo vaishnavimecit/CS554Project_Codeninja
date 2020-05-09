@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import Card from "react-bootstrap/Card";
 
 function Hospitals() {
   const { currentUser } = useContext(AuthContext);
@@ -94,7 +95,86 @@ function Hospitals() {
   };
 
   function getContent() {
-    return <p>{JSON.stringify(displayData)}</p>;
+    const sortedHospitals = displayData.sort((a, b) => {
+      if (a.isSignedUp && b.isSignedUp) {
+        if (a.data.urgency === b.data.urgency) {
+          return 0;
+        } else if (
+          a.data.urgency === "Critical" &&
+          b.data.urgency !== "Critical"
+        ) {
+          return -1;
+        } else if (
+          a.data.urgency !== "Critical" &&
+          b.data.urgency === "Critical"
+        ) {
+          return 1;
+        } else if (a.data.urgency === "Medium" && b.data.urgency !== "Medium") {
+          return -1;
+        } else if (a.data.urgency !== "Medium" && b.data.urgency === "Medium") {
+          return 1;
+        } else {
+          return a.data.urgency === "Low" ? -1 : 1;
+        }
+      } else if (a.isSignedUp && !b.isSignedUp) {
+        return -1;
+      } else if (!a.isSignedUp && b.isSignedUp) {
+        return 1;
+      } else {
+        return 1;
+      }
+    });
+    const items = [];
+    sortedHospitals.forEach((hosp) => {
+      if (hosp.isSignedUp) {
+        items.push(
+          <Card key={hosp.google_id}>
+            <Card.Body>
+              <Card.Title>{hosp.name}</Card.Title>
+              <Card.Text>{hosp.address}</Card.Text>
+              <Card.Text text="success">
+                This clinic is signed up with us!
+              </Card.Text>
+              <Card.Text>
+                Their indicated severity of needing PPE donations is:{" "}
+                <Card.Text
+                  text={
+                    hosp.data.urgency === "Critical"
+                      ? "danger"
+                      : hosp.data.urgency === "Low"
+                      ? "success"
+                      : "warning"
+                  }
+                >
+                  {hosp.data.urgency}
+                </Card.Text>
+                <Card.Text>
+                  Items they are requesting:
+                  {"\n" +
+                    hosp.data.requestedItems
+                      .map((itm) => `${itm.quantity} ${itm.name}`)
+                      .join(", ")}
+                </Card.Text>
+              </Card.Text>
+              <Button variant="success" href={`/hospitals/${hosp.google_id}`}>
+                Get In Contact to Donate!
+              </Button>
+            </Card.Body>
+          </Card>
+        );
+      } else {
+        items.push(
+          <Card key={hosp.google_id}>
+            <Card.Body>
+              <Card.Title>{hosp.name}</Card.Title>
+              <Card.Text>{hosp.address}</Card.Text>
+              <Card.Text>This clinic is not signed up with us.</Card.Text>
+            </Card.Body>
+          </Card>
+        );
+      }
+    });
+    return <div>{items}</div>;
   }
 
   if (displayData) {
