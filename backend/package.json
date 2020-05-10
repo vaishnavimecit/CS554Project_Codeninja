@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/vaishnavimecit/CS554Project_Codeninja#readme",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "firebase-admin": "^8.10.0",
+    "redis": "^3.0.2",
     "schema-inspector": "^1.6.9",
     "uuid": "^7.0.3"
   }
