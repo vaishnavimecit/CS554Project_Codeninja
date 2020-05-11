@@ -27,6 +27,20 @@ router.post("/:id", async (req, res) => {
   }
 });
 
+router.get("/google_id/:gid", async (req, res) => {
+  try {
+    const gid = req.params.gid;
+    if (typeof gid !== "string") {
+      throw new Error("Invalid google id provided");
+    }
+    const hospital = await hospitalData.getByGoogleId(gid);
+    res.json(hospital);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json(e);
+  }
+});
+
 router.get("/email/:email", async (req, res) => {
   try {
     const email = req.params.email;
