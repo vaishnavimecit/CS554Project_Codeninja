@@ -112,6 +112,35 @@ async function getById(id) {
   }
 }
 
+async function getByGoogleId(gid) {
+  if (!gid) {
+    throw new Error("google id field required");
+  }
+  try {
+    const client = await firebaseUtils.getClient();
+    const colRef = client.collection("hospitals");
+    const docRef = colRef.where("google_id", "==", gid);
+    const snapshot = await docRef.get();
+    let oneDoc = false;
+    let document;
+    snapshot.forEach((doc) => {
+      if (oneDoc) {
+        throw new Error("Duplicate Documents for google id " + gid);
+      }
+      oneDoc = true;
+      document = { id: doc.id, ...doc.data() };
+    });
+
+    if (document) {
+      return document;
+    } else {
+      throw new Error(`Document with google id ${gid} does not exist.`);
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
 async function getByEmail(email) {
   if (!email) {
     throw new Error("emial field required");
@@ -198,4 +227,5 @@ module.exports = {
   getByEmail,
   updateGoogleId,
   matchGoogleIds,
+  getByGoogleId,
 };
