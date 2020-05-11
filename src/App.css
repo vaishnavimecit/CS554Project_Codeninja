@@ -6,7 +6,11 @@
   text-align: center;
   justify-content: center;
 }
-
+.App-button {
+	color: mediumblue;
+	text-align: center;
+	font-size: 20px;
+}
 
 
 .App {
@@ -26,8 +30,8 @@
 }
 
 .App-header {
-	background-color: #1e8678;
-	height: 175px;
+	background-color: #8a89be;
+	height: 475px;
 	padding: 20px;
 	color: #222;
 }

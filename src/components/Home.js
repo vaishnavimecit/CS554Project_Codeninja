@@ -1,22 +1,69 @@
-import React, { useState, useEffect } from "react";
-import logo from '../logo.svg';
+import React, { Component} from "react";
 import '../App.css';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 
-function Home() {
+const texts = [
+  {
+    name: 'Text 1',
+    text: 'ASAP Health.'
+  },
+  {
+    name: 'Text 2',
+    text: 'Take Action.' 
+  },
+  {
+    name: 'Text 3',
+    text: 'Make a Difference.'
+  }
+]
+
+
+
+class Home extends Component {
+  render(){
+    const settings = {
+      dots: false,
+      arrows: false,
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      speed: 2000,
+      autoplaySpeed: 4000,
+      cssEase: "linear",
+      className: "slides"
+    }
   return (
-   
-        <div>
-          <header className="App-header">
-          <br></br>
-          <br></br>
-          
-          
-          <h1 className = "App-title"> Welcome to Make a change! </h1>
-          </header>
-        </div>
-   
+    <div className="App-header">
+         <Slider {...settings}>
+           {texts.map((text) =>{
+             return(
+               <div>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <h1>{text.text}</h1>
+                 <br></br>
+                 <br></br>
+               </div>
+             )
+           })}
+
+         </Slider>
+         <a className="App-button" href="/signin">LognIn</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+         <a className="App-button" href="/sign-up">SignUP</a>
+
+     </div>
+
   );
 }
+}
 export default Home;
+  
