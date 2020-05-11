@@ -4,7 +4,7 @@ import '../App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 
-function App() {
+function Home() {
   return (
    
         <div>
@@ -19,4 +19,4 @@ function App() {
    
   );
 }
-export default App;
+export default Home;
