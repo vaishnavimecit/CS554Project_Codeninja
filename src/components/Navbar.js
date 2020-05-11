@@ -115,6 +115,11 @@ const NavigationNonAuth = () => {
               Hospitals
             </a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/faq">
+              FAQ
+            </a>
+          </li>
         </ul>
         <ul className="navbar-nav flex-row ml-md-auto">
           <li className="nav-item">
