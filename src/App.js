@@ -18,8 +18,9 @@ function App() {
       <Router>
         <div className="App">
           <Navbar />
+          <Route path="/" exact component={Home} />
           <div className="container mx-auto">
-            <Route path="/" exact component={Home} />
+           
             <Route path="/signin" exact component={signin} />
             <Route path="/sign-up" exact component={signup} />
             <Route path="/hospitals" exact component={hospitals} />
