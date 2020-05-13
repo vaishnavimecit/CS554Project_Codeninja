@@ -28,18 +28,8 @@ const NavigationAuth = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link" href="/donor-form">
-              Donor Form
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/hospital-form">
-              Hospital Form
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/hospital-info">
-              Hospital Info Sheet
+            <a className="nav-link" href="/faq">
+              FAQ
             </a>
           </li>
           <li className="nav-item">
@@ -86,18 +76,8 @@ const NavigationNonAuth = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link" href="/donor-form">
-              Donor Form
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/hospital-form">
-              Hospital Form
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/hospital-info">
-              Hospital Info Sheet
+            <a className="nav-link" href="/faq">
+              FAQ
             </a>
           </li>
           <li className="nav-item">
