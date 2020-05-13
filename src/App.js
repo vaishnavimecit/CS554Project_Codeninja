@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import AssociateHospital from "./components/AssociateHospital";
 import contact from "./components/Contact";
-import faq from "./components/Faq"
+import faq from "./components/Faq";
 import { AuthProvider } from "./firebase/Auth";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -21,7 +21,6 @@ function App() {
           <Navbar />
           <Route path="/" exact component={Home} />
           <div className="container mx-auto">
-           
             <Route path="/signin" exact component={signin} />
             <Route path="/sign-up" exact component={signup} />
             <Route path="/hospitals" exact component={hospitals} />
