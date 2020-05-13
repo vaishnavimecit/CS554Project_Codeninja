@@ -9,7 +9,6 @@ import Home from "./components/Home";
 import about from "./components/About";
 import contact from "./components/Contact";
 import AssociateHospital from "./components/AssociateHospital";
-import contact from "./components/Contact";
 import faq from "./components/Faq";
 import { AuthProvider } from "./firebase/Auth";
 

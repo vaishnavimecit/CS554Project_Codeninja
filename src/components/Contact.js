@@ -37,26 +37,35 @@ class Contact extends Component {
       message: message.value,
     };
 
-    if (
-      name != undefined &&
-      email != undefined &&
-      subject != undefined &&
-      message != undefined
-    ) {
-      if (name === typeof string) {
-        window.emailjs
-          .send("gmail", templateId, template_params)
-          .then((res) => {
-            console.log("Email sent successfully!!!");
-          })
-          .catch((err) => console.error("Failed", err));
+    var name1 = name.value;
+    var mail = email.value;
+    var sub = subject.value;
+    var msg = message.value;
 
-        document.getElementById("contact-form").reset();
-        var success = document.getElementById("success");
-        success.innerHTML =
-          "Email sent successfully! You will be contacted back!!!";
-      }
+    if (
+      name1 != undefined &&
+      mail != undefined &&
+      sub != undefined &&
+      msg != undefined
+    ) {
+      //console.log(name1 + mail + sub + msg);
+
+      window.emailjs
+        .send("gmail", templateId, template_params)
+        .then((res) => {
+          console.log("Email sent successfully!!!");
+        })
+        .catch((err) => console.error("Failed", err));
+
+      var success = document.getElementById("success");
+      success.innerHTML =
+        "Email sent successfully! You will be contacted back!!!";
+    } else {
+      var failure = document.getElementById("success");
+      failure.innerHTML = "Please provide values!!!";
     }
+
+    document.getElementById("contact-form").reset();
   }
 
   render() {
@@ -81,6 +90,7 @@ class Contact extends Component {
                 id="name"
                 name="name"
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
 
@@ -91,6 +101,7 @@ class Contact extends Component {
                 id="email"
                 name="email"
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
 
@@ -101,6 +112,7 @@ class Contact extends Component {
                 id="subject"
                 name="subject"
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
 
@@ -111,6 +123,7 @@ class Contact extends Component {
                 id="message"
                 name="message"
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
 

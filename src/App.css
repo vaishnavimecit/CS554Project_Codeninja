@@ -16,46 +16,6 @@ body {
   justify-content: center;
 }
 
-.contact {
-  background-color: plum;
-  width: 70vw;
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#success {
-  font-weight: bold;
-  font-style: italic;
-  font-size: 30px;
-}
-
-.about {
-  background-color: plum;
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  width: 70vw;
-  justify-content: center;
-  text-align: justify;
-}
-
-.links {
-  color: black;
-  font-weight: bold;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: plum;
-  color: black;
-  text-align: center;
-}
-
-ul {
-  list-style-type: square;
-}
 .App-button {
   color: mediumblue;
   text-align: center;
@@ -94,10 +54,12 @@ ul {
 cite {
   font-weight: bold;
 }
+
 table {
   align-content: center;
   margin: auto;
 }
+
 td {
   padding: 10px;
 }
@@ -137,10 +99,6 @@ p {
   text-align: center;
 }
 
-div {
-  text-align: center;
-}
-
 ul a {
   color: #1e8678;
   text-decoration: none !important;
@@ -153,4 +111,45 @@ ul a:hover {
 
 ul {
   list-style: none;
+}
+
+.contact {
+  background-color: plum;
+  width: 70vw;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#success {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 30px;
+}
+
+.about {
+  background-color: plum;
+  font-size: 23px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 70vw;
+  text-align: justify;
+}
+
+.links {
+  color: black;
+  font-weight: bold;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: plum;
+  color: black;
+  text-align: center;
+}
+
+ul li {
+  text-align: left;
+  line-height: 0.5mm;
 }

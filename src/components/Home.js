@@ -1,4 +1,3 @@
-import React from "react";
 import React, { Component } from "react";
 import "../App.css";
 import "slick-carousel/slick/slick.css";
@@ -55,11 +54,11 @@ class Home extends Component {
           })}
         </Slider>
         <a className="App-button" href="/signin">
-          LognIn
+          Log In
         </a>{" "}
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <a className="App-button" href="/sign-up">
-          SignUP
+          Sign Up
         </a>
       </div>
     );
