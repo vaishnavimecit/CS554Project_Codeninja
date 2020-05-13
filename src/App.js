@@ -6,6 +6,7 @@ import signup from "./components/SignUp";
 import hospitals from "./components/Hospitals";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
+import about from "./components/About";
 import contact from "./components/Contact"
 import { AuthProvider } from "./firebase/Auth";
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/signin" exact component={signin} />
             <Route path="/sign-up" exact component={signup} />
             <Route path="/hospitals" exact component={hospitals} />
+            <Route path="/about" exact component={about} />
             <Route path="/contact" exact component={contact} />
           </div>
         </div>
