@@ -16,7 +16,6 @@ function AssociateHospital() {
   const { currentUser } = useContext(AuthContext);
   let content = null;
   useEffect(() => {
-    console.log("render");
     async function getData() {
       const user = await getAccount();
       if (user) {
@@ -72,17 +71,27 @@ function AssociateHospital() {
     return <div>{items}</div>;
   }
 
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   async function getAccount() {
-    try {
-      const res = await axios.get(
-        `http://localhost:3001/hospitals/email/${currentUser.email}`
-      );
-      setProfile(res.data);
-      return res.data;
-    } catch (e) {
-      setProfile(null);
-      setLoaded(true);
+    let retryCount = 0;
+    const maxRetries = 5;
+    while (retryCount < maxRetries) {
+      retryCount++;
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/hospitals/email/${currentUser.email}`
+        );
+        setProfile(res.data);
+        return res.data;
+      } catch (e) {
+        await delay(500);
+      }
     }
+    setProfile(null);
+    setLoaded(true);
   }
 
   async function getHospitals(longitude, latitude) {
