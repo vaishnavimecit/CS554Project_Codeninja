@@ -1,6 +1,12 @@
 const hospitalData = require("../data").hospitals;
 const express = require("express");
 const router = express.Router();
+const bluebird = require("bluebird");
+const redis = require("redis");
+const redisClient = redis.createClient();
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
 
 router.get("/:id", async (req, res) => {
   try {
@@ -20,6 +26,12 @@ router.post("/:id", async (req, res) => {
       throw new Error("Missing required prameters id/g_id");
     }
     const hospital = await hospitalData.updateGoogleId(id, g_id);
+    const redisKey =
+      "geo:" +
+      String(hospital.location.latitude) +
+      "," +
+      String(hospital.location.latitude);
+    redisClient.delAsync(redisKey);
     res.json(hospital);
   } catch (e) {
     console.log(e);

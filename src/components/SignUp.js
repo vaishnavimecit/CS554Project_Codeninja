@@ -218,7 +218,11 @@ function SignUp() {
   };
 
   if (currentUser) {
-    return <Redirect to="/hospitals/set_gid" />;
+    if (otherType === "Donor") {
+      return <Redirect to="/hospitals/set_gid" />;
+    } else {
+      return <Redirect to="/" />;
+    }
   }
   function generateAlert(message, variant) {
     return <Alert variant={variant}>{message}</Alert>;

@@ -19,8 +19,9 @@ router.get("/coordinates/:zipcode", async (req, res) => {
     return;
   }
   try {
-    if ((await redisClient.existsAsync(zipcode)) === 1) {
-      const cacheResponse = JSON.parse(await redisClient.getAsync(zipcode));
+    const redisKey = "zip:" + zipcode;
+    if ((await redisClient.existsAsync(redisKey)) === 1) {
+      const cacheResponse = JSON.parse(await redisClient.getAsync(redisKey));
       res.json(cacheResponse);
       return;
     }
@@ -38,8 +39,8 @@ router.get("/coordinates/:zipcode", async (req, res) => {
     const address = zipRes.data.results[0].formatted_address;
     const placeId = zipRes.data.results[0].place_id;
     const response = { longitude, latitude, address, placeId };
-    await redisClient.setAsync(zipcode, JSON.stringify(response));
-    await redisClient.expireAsync(zipcode, FIVE_MIN);
+    await redisClient.setAsync(redisKey, JSON.stringify(response));
+    await redisClient.expireAsync(redisKey, FIVE_MIN);
     res.json(response);
   } catch (e) {
     console.log(e);
@@ -64,7 +65,7 @@ router.get("/hospitals", async (req, res) => {
   }
 
   try {
-    const redisKey = String(latitude) + "," + String(longitude);
+    const redisKey = "geo:" + String(latitude) + "," + String(longitude);
     if ((await redisClient.existsAsync(redisKey)) === 1) {
       const cacheResponse = JSON.parse(await redisClient.getAsync(redisKey));
       res.json(cacheResponse);
