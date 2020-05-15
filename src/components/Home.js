@@ -53,13 +53,13 @@ class Home extends Component {
             );
           })}
         </Slider>
-        <a className="App-button" href="/signin">
+        {/* <a className="App-button" href="/signin">
           Log In
         </a>{" "}
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <a className="App-button" href="/sign-up">
           Sign Up
-        </a>
+        </a> */}
       </div>
     );
   }
