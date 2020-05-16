@@ -390,8 +390,6 @@ function SignUp() {
         <Button id="submitButton" name="submitButton" type="submit">
           Sign Up
         </Button>
-        <hr></hr>
-        <SocialSignIn></SocialSignIn>
       </Form>
     );
   }
@@ -542,8 +540,6 @@ function SignUp() {
         <Button id="submitButton" name="submitButton" type="submit">
           Sign Up
         </Button>
-        <hr></hr>
-        <SocialSignIn></SocialSignIn>
       </Form>
     );
   }
@@ -564,6 +560,9 @@ function SignUp() {
         <Card.Header>Sign Up</Card.Header>
         <Card.Body>{formBody}</Card.Body>
       </Card>
+      <footer class="footer">
+        2020 &#169; Stevens Institute of Technology
+      </footer>
     </div>
   );
 }
