@@ -59,6 +59,8 @@ const schema = {
       },
     },
     id: { type: "string", optional: true },
+    instructions: { type: "string", optional: true },
+    phone: { type: "number", optional: true },
   },
 };
 
