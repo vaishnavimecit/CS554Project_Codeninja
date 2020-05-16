@@ -131,6 +131,9 @@ function AssociateHospital() {
 
       <hr></hr>
       {content}
+      <footer class="footer">
+        2020 &#169; Stevens Institute of Technology
+      </footer>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { AuthContext } from "../firebase/Auth";
 const Navigation = () => {
   const { currentUser } = useContext(AuthContext);
   return (
-    <div class="head">
+    <div className="head">
       {currentUser ? <NavigationAuth /> : <NavigationNonAuth />}
     </div>
   );

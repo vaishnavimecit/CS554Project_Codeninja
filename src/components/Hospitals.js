@@ -62,13 +62,17 @@ function Hospitals() {
   }
 
   const getUser = async (email) => {
+    let res;
     try {
-      const res = await axios.get(
-        `http://localhost:3001/donors/email/${email}`
-      );
+      res = await axios.get(`http://localhost:3001/donors/email/${email}`);
       return res.data;
-    } catch (e) {
-      console.log(e);
+    } catch {
+      try {
+        res = await axios.get(`http://localhost:3001/hospitals/email/${email}`);
+        return res.data;
+      } catch {
+        throw "Error: user not found.";
+      }
     }
   };
 
