@@ -43,10 +43,10 @@ class Contact extends Component {
     var msg = message.value;
 
     if (
-      name1 != undefined &&
-      mail != undefined &&
-      sub != undefined &&
-      msg != undefined
+      name1 !== undefined &&
+      mail !== undefined &&
+      sub !== undefined &&
+      msg !== undefined
     ) {
       //console.log(name1 + mail + sub + msg);
 
@@ -70,14 +70,14 @@ class Contact extends Component {
 
   render() {
     return (
-      <div class="container">
-        <div class="contact">
+      <div className="container">
+        <div className="contact">
           <Form
             id="contact-form"
             onSubmit={this.handleSubmit.bind(this)}
             method="POST"
           >
-            <h2 class="heading">Get In Touch</h2>
+            <h1 className="heading">Get In Touch</h1>
             <p id="success">
               To discuss how we can help you, please feel free to contact us
               with any questions or concerns you have!!!
@@ -89,6 +89,7 @@ class Contact extends Component {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="Enter your name here"
                 onChange={this.handleChange}
                 required
               />
@@ -100,6 +101,7 @@ class Contact extends Component {
                 type="email"
                 id="email"
                 name="email"
+                placeholder="Enter your email id here"
                 onChange={this.handleChange}
                 required
               />
@@ -111,6 +113,7 @@ class Contact extends Component {
                 type="text"
                 id="subject"
                 name="subject"
+                placeholder="Enter the subject"
                 onChange={this.handleChange}
                 required
               />
@@ -122,31 +125,45 @@ class Contact extends Component {
                 type="textarea"
                 id="message"
                 name="message"
+                placeholder="Enter your message for us"
                 onChange={this.handleChange}
                 required
               />
             </FormGroup>
 
-            <Button type="submit">Submit</Button>
+            <Button className="cnt-btn" type="submit">
+              Click me to send
+            </Button>
             <br />
             <br />
           </Form>
-          <a class="links" href="mailto:asap.health@gmail.com" target="_blank">
+          <a className="links" href="mailto:asaphealth576@gmail.com">
             Email
           </a>{" "}
           |{" "}
-          <a class="links" href="https://www.facebook.com/wix/" target="_blank">
+          <a
+            className="links"
+            href="https://www.facebook.com/wix/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Facebook
           </a>{" "}
           |{" "}
-          <a class="links" href="https://twitter.com/Wix" target="_blank">
+          <a
+            className="links"
+            href="https://twitter.com/Wix"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Twitter
           </a>{" "}
           |{" "}
           <a
             class="links"
-            href="https://www.instagram.com/wix/"
+            href="https://www.instagram.com/asap_health/"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Instagram
           </a>

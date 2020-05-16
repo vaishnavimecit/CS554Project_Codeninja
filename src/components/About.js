@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div class="container">
       <div class="about">
-        <h2 class="heading">Who we are?</h2>
+        <h1 className="heading">Who we are?</h1>
         <p>
           Hello, we are the students of Stevens Institute of Technology. We came
           up with this idea of creating a web application to serve the hospitals
@@ -14,7 +14,7 @@ const About = () => {
           striving hard to adopt a more pivotal role in the manner in which we
           want to help the nation.
         </p>
-        <h2 class="heading">What we do?</h2>
+        <h1 className="heading">What we do?</h1>
         <p>
           This can be used to find any hospitals nearby, clinical needs and for
           donations. Donors can sign up and add details about what they can
@@ -28,7 +28,7 @@ const About = () => {
           execution plays a vital role in determining the overall impact of any
           intervention.
         </p>
-        <h2 class="heading">Who we server?</h2>
+        <h1 className="heading">Who we server?</h1>
         <p>
           <ul>
             <li>Hospitals & Clinics</li>

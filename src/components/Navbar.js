@@ -5,7 +5,11 @@ import { AuthContext } from "../firebase/Auth";
 
 const Navigation = () => {
   const { currentUser } = useContext(AuthContext);
-  return <div>{currentUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>;
+  return (
+    <div class="head">
+      {currentUser ? <NavigationAuth /> : <NavigationNonAuth />}
+    </div>
+  );
 };
 
 const NavigationAuth = () => {
@@ -28,22 +32,22 @@ const NavigationAuth = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link" href="/faq">
+            <a className="navi-link" href="/faq">
               FAQ
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about">
+            <a className="navi-link" href="/about">
               About Us
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/contact">
+            <a className="navi-link" href="/contact">
               Contact
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/hospitals">
+            <a className="navi-link" href="/hospitals">
               Hospitals
             </a>
           </li>
@@ -76,35 +80,35 @@ const NavigationNonAuth = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link" href="/faq">
+            <a className="navi-link" href="/faq">
               FAQ
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about">
+            <a className="navi-link" href="/about">
               About Us
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/contact">
+            <a className="navi-link" href="/contact">
               Contact
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/hospitals">
+            <a className="navi-link" href="/hospitals">
               Hospitals
             </a>
           </li>
         </ul>
         <ul className="navbar-nav flex-row ml-md-auto">
           <li className="nav-item">
-            <a className="nav-link" href="/signin">
+            <a className="navi-link" href="/signin">
               Sign In
             </a>
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" href="/sign-up">
+            <a className="navi-link" href="/sign-up">
               Sign Up
             </a>
           </li>
