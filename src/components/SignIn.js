@@ -89,10 +89,11 @@ function SignIn() {
               Forgot Password
             </Button>
           </Form>
-          <hr></hr>
-          <SocialSignIn></SocialSignIn>
         </Card.Body>
       </Card>
+      <footer class="footer">
+        2020 &#169; Stevens Institute of Technology
+      </footer>
     </div>
   );
 }
