@@ -200,7 +200,6 @@ async function matchGoogleIds(ids) {
 }
 
 async function createNew(newHospitalObj) {
-  console.log(newHospitalObj);
   const validation = inspector.validate(schema, newHospitalObj);
   if (!validation.valid) {
     throw new Error(validation.format());
