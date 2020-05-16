@@ -7,6 +7,7 @@ const serviceAccount = require("../config/serviceAccountKey.json");
 const mapsKey = serviceAccount.google_maps_key;
 const hospitalData = require("../data/hospitals");
 const redisClient = redis.createClient();
+// const redisClient = redis.createClient("redis://redis:6379");
 const FIVE_MIN = 5000;
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
