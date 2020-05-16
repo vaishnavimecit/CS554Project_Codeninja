@@ -5,7 +5,7 @@ const About = () => {
     <div class="container">
       <div class="about">
         <h1 className="heading">Who we are?</h1>
-        <p>
+        <p className="answer">
           Hello, we are a group of students from Stevens Institute of
           Technology. We came up with this idea of creating a web application to
           assist hospitals and clincs around the country that have been
@@ -17,7 +17,7 @@ const About = () => {
           continue to strive to make a difference anywhere we can!
         </p>
         <h1 className="heading">What we do?</h1>
-        <p>
+        <p className="answer"> 
           This application is designed to find hospitals and clinics near you or
           anywhere around the country. Donors can sign up and add items they
           wish to donate to match you with clincs near you in need of donations.
