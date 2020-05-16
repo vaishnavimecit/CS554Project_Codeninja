@@ -59,6 +59,8 @@ const schema = {
       },
     },
     id: { type: "string", optional: true },
+    instructions: { type: "string", optional: true },
+    phone: { type: "number", optional: true },
   },
 };
 
@@ -198,6 +200,7 @@ async function matchGoogleIds(ids) {
 }
 
 async function createNew(newHospitalObj) {
+  console.log(newHospitalObj);
   const validation = inspector.validate(schema, newHospitalObj);
   if (!validation.valid) {
     throw new Error(validation.format());
