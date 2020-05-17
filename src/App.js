@@ -30,7 +30,7 @@ function App() {
             <Route path="/contact" exact component={contact} />
             <Route path="/faq" exact component={faq} />
             <Route
-              path="/hospitals/set_gid"
+              path="/hospitals/:set_gid"
               exact
               component={AssociateHospital}
             />
