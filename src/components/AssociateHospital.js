@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { AuthContext } from "../firebase/Auth";
 
-function AssociateHospital() {
+function AssociateHospital(props) {
   const [message, setMessage] = useState(undefined);
   const [hospitals, setHospitals] = useState(undefined);
   const [loaded, setLoaded] = useState(false);
@@ -17,19 +17,11 @@ function AssociateHospital() {
   let content = null;
   useEffect(() => {
     async function getData() {
-      const user = await getAccount();
-      if (user) {
-        await getHospitals(user.location._longitude, user.location._latitude);
-      }
+      console.log(props.match.params.set_gid);
+      associate(props.match.params.set_gid);
     }
-    if (!loaded) {
-      getData();
-    }
-  }, [loaded]);
-
-  if (!currentUser || profile === null) {
-    return <Redirect to="/"></Redirect>;
-  }
+    getData();
+  }, []);
 
   function generateAlert(message, variant) {
     return <Alert variant={variant}>{message}</Alert>;
@@ -37,10 +29,14 @@ function AssociateHospital() {
 
   async function associate(g_id) {
     try {
-      await axios.post(
-        `http://localhost:3001/hospitals/${profile.id}?g_id=${g_id}`
-      );
-      setProfile(null);
+      //${profile.id}?g_id=${g_id}`
+      await axios
+        .get(`http://localhost:3001/hospitals/getHospital/${g_id}`)
+        .then((data) => {
+          setHospitals(data);
+          console.log(hospitals);
+        });
+      console.log(hospitals);
       setLoaded(true);
     } catch (e) {
       if (typeof e === "string") {
@@ -55,62 +51,23 @@ function AssociateHospital() {
 
   function getContent() {
     const items = [];
-    hospitals.forEach((hosp) => {
-      items.push(
-        <Card key={hosp.google_id}>
-          <Card.Body>
-            <Card.Title>{hosp.name}</Card.Title>
-            <Card.Text>{hosp.address}</Card.Text>
-            <Button variant="primary" onClick={() => associate(hosp.google_id)}>
-              This is Me!
-            </Button>
-          </Card.Body>
-        </Card>
-      );
-    });
+    console.log(hospitals);
+    items.push(
+      <Card key={hospitals.data.google_id}>
+        <Card.Body>
+          <Card.Title>{hospitals.data.name}</Card.Title>
+          <Card.Text>{hospitals.data.city}</Card.Text>
+          <Card.Text>{hospitals.data.state}</Card.Text>
+          <Card.Text>{hospitals.data.phone}</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+
     return <div>{items}</div>;
   }
 
   function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  async function getAccount() {
-    let retryCount = 0;
-    const maxRetries = 5;
-    while (retryCount < maxRetries) {
-      retryCount++;
-      try {
-        const res = await axios.get(
-          `http://localhost:3001/hospitals/email/${currentUser.email}`
-        );
-        setProfile(res.data);
-        return res.data;
-      } catch (e) {
-        await delay(500);
-      }
-    }
-    setProfile(null);
-    setLoaded(true);
-  }
-
-  async function getHospitals(longitude, latitude) {
-    try {
-      const res = await axios.get(
-        `http://localhost:3001/locations/hospitals?longitude=${longitude}&latitude=${latitude}`
-      );
-      setHospitals(res.data);
-      setLoaded(true);
-      return res.data;
-    } catch (e) {
-      if (typeof e === "string") {
-        setMessage(generateAlert(e, "danger"));
-      } else {
-        setMessage(
-          generateAlert(e.message ? e.message : JSON.stringify(e), "danger")
-        );
-      }
-    }
   }
 
   if (hospitals) {
@@ -127,9 +84,6 @@ function AssociateHospital() {
   }
   return (
     <div>
-      {message}
-
-      <hr></hr>
       {content}
       <footer class="footer">
         2020 &#169; Stevens Institute of Technology
