@@ -236,7 +236,7 @@ function SignUp() {
 
   if (currentUser) {
     if (otherType === "Donor") {
-      return <Redirect to="/hospitals/set_gid" />;
+      return <Redirect to="/associatehospital" />;
     } else {
       return <Redirect to="/" />;
     }
