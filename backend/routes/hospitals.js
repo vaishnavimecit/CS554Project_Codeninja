@@ -1,14 +1,6 @@
 const hospitalData = require("../data").hospitals;
 const express = require("express");
 const router = express.Router();
-const serviceAccount = require("../config/serviceAccountKey.json");
-const mapsKey = serviceAccount.google_maps_key;
-const bluebird = require("bluebird");
-const redis = require("redis");
-const redisClient = redis.createClient();
-
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
 
 router.get("/:id", async (req, res) => {
   try {
@@ -41,9 +33,9 @@ router.post("/:id", async (req, res) => {
   }
 });
 
-router.get("/google_id/:gid", async (req, res) => {
+router.get("/getHospital/:set_gid", async (req, res) => {
   try {
-    const gid = req.params.gid;
+    const gid = req.params.set_gid;
     if (typeof gid !== "string") {
       throw new Error("Invalid google id provided");
     }
@@ -65,23 +57,6 @@ router.get("/email/:email", async (req, res) => {
     res.status(500).json(e);
   }
 });
-
-router.get("/getHospital/:set_gid", async (req, res) => {
-  try {
-    const gid = req.params.set_gid;
-    if (typeof gid !== "string") {
-      throw new Error("Invalid google id provided");
-    }
-    const hospital = await fetch(
-      `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${mapsKey}&input=${gid}`
-    );
-    res.json(hospital);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json(e);
-  }
-});
-
 
 router.post("/", async (req, res) => {
   try {
