@@ -64,6 +64,23 @@ router.get("/email/:email", async (req, res) => {
   }
 });
 
+router.get("/getHospital/:set_gid", async (req, res) => {
+  try {
+    const gid = req.params.set_gid;
+    if (typeof gid !== "string") {
+      throw new Error("Invalid google id provided");
+    }
+    const hospital = await fetch(
+      `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${mapsKey}&input=${gid}`
+    );
+    res.json(hospital);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json(e);
+  }
+});
+
+
 router.post("/", async (req, res) => {
   try {
     const hospital = await hospitalData.createNew(req.body);
