@@ -29,9 +29,9 @@ router.post("/:id", async (req, res) => {
     const hospital = await hospitalData.updateGoogleId(id, g_id, address);
     const redisKey =
       "geo:" +
-      String(hospital.location.latitude) +
+      String(hospital.location._latitude) +
       "," +
-      String(hospital.location.latitude);
+      String(hospital.location._longitude);
     redisClient.delAsync(redisKey);
     res.json(hospital);
   } catch (e) {
