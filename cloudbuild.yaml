@@ -1,0 +1,40 @@
+steps:
+    # Deploy redis
+    - name: 'us.gcr.io/cloud-builders/gcloud'
+      args: [
+      'run',
+      'deploy',
+      'redis',
+      '--image',
+      'gcr.io/make-a-change-697da/redis',
+      '--region',
+      'us-east4',
+      '--platform',
+      'managed',
+      '--allow-unauthenticated']
+    Deploy backend
+    - name: 'us.gcr.io/cloud-builders/gcloud'
+        args: [
+        'run',
+        'deploy',
+        'backend',
+        '--image',
+        'gcr.io/make-a-change-697da/make-a-change_backend',
+        '--region',
+        'nam5',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated']
+    # # Deploy UI
+    - name: 'us.gcr.io/cloud-builders/gcloud'
+        args: [
+        'run',
+        'deploy',
+        'web',
+        '--image',
+        'gcr.io/make-a-change-697da/make-a-change_web',
+        '--region',
+        'nam5',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated']

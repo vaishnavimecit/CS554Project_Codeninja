@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 const bluebird = require("bluebird");
 const redis = require("redis");
-const redisClient = redis.createClient();
+const redisClient = redis.createClient("redis://redis:6379");
+// const redisClient = redis.createClient();
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
