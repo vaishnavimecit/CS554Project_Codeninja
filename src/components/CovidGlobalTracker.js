@@ -9,14 +9,16 @@ function StatsHook() {
   const [latest, setLatest] = useState(undefined);
   useEffect(() => {
     async function fetchData() {
-      console.log("fetching Data");
-      await axios
+      const covidData = await axios
         .get("https://coronavirus-tracker-api.herokuapp.com/v2/locations")
         .then((res) => {
-          console.log(res.data.latest);
-          setLatest(res.data.latest);
-          setCovidStats(res.data.locations);
+          let response = res;
+
+          setCovidStats(response.data.latest); //global stats
+          console.log(covidStats);
+          return response.data.locations;
         });
+      setLatest(covidData); //location stats
     }
     fetchData();
   }, []);
@@ -27,12 +29,11 @@ function CovidGlobalTracker() {
   let stats,
     l_stats = StatsHook();
   const items = [];
-  console.log(l_stats);
-  console.log(stats);
+  console.log(stats, l_stats);
   return (
     <div>
       <div>
-        <p className="l_stats">{l_stats}</p>
+        <p className="l_stats">l_stats</p>
       </div>
       <div>
         <p>map</p>
