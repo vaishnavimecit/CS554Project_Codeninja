@@ -13,9 +13,7 @@ function StatsHook() {
         .get("https://coronavirus-tracker-api.herokuapp.com/v2/locations")
         .then((res) => {
           let response = res;
-
           setCovidStats(response.data.latest); //global stats
-          console.log(covidStats);
           return response.data.locations;
         });
       setLatest(covidData); //location stats
@@ -29,7 +27,8 @@ function CovidGlobalTracker() {
   let stats,
     l_stats = StatsHook();
   const items = [];
-  console.log(stats, l_stats);
+  console.log(covidData);
+  //console.log(l_stats);
   return (
     <div>
       <div>
