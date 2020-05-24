@@ -1,6 +1,7 @@
 # CS554Project_Codeninja MAKE A CHANGE
 
-Spring 2020 Web programming II final project using Javascript and NoSQL
+Spring 2020 Web programming II final project using Javascript and NoSQL\
+Hosted at https://make-a-changeweb-lkskcm7koq-uc.a.run.app/
 
 ## General Overview & Functions 
 
