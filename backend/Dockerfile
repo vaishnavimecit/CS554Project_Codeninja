@@ -1,3 +1,7 @@
+# FROM redis:latest
+# EXPOSE 6379
+# CMD ["redis-server", "./config/redis-conf"]
+
 FROM node:current-slim
 # Create app directory
 WORKDIR /home/adamundus/macappapi

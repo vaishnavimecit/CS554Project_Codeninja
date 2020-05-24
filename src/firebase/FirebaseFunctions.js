@@ -5,10 +5,13 @@ async function createDonor(email, password, profileData) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     firebase.auth().currentUser.updateProfile(profileData);
-    const res = await axios.post("http://localhost:3001/donors", {
-      email,
-      ...profileData,
-    });
+    const res = await axios.post(
+      "https://make-a-changebackend-lkskcm7koq-uc.a.run.app/donors",
+      {
+        email,
+        ...profileData,
+      }
+    );
     if (res.status !== 200) {
       throw new Error(
         "Error: Unable to create user in database. " + JSON.stringify(res.data)
@@ -27,10 +30,13 @@ async function createHospital(email, password, profileData) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     firebase.auth().currentUser.updateProfile(profileData);
-    const res = await axios.post("http://localhost:3001/hospitals", {
-      email,
-      ...profileData,
-    });
+    const res = await axios.post(
+      "https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals",
+      {
+        email,
+        ...profileData,
+      }
+    );
     if (res.status !== 200) {
       throw new Error(
         "Error: Unable to create user in database. " + JSON.stringify(res.data)

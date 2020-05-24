@@ -64,11 +64,15 @@ function Hospitals() {
   const getUser = async (email) => {
     let res;
     try {
-      res = await axios.get(`http://localhost:3001/donors/email/${email}`);
+      res = await axios.get(
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/donors/email/${email}`
+      );
       return res.data;
     } catch {
       try {
-        res = await axios.get(`http://localhost:3001/hospitals/email/${email}`);
+        res = await axios.get(
+          `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals/email/${email}`
+        );
         return res.data;
       } catch {
         throw "Error: user not found.";
@@ -79,7 +83,7 @@ function Hospitals() {
   const getLocationByZip = async (zip) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/locations/coordinates/${zip}`
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/locations/coordinates/${zip}`
       );
       return res.data;
     } catch (e) {
@@ -90,7 +94,7 @@ function Hospitals() {
   const getHospitals = async (longitude, latitude) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/locations/hospitals?longitude=${longitude}&latitude=${latitude}`
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/locations/hospitals?longitude=${longitude}&latitude=${latitude}`
       );
       return res.data;
     } catch (e) {

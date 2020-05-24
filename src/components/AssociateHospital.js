@@ -38,7 +38,7 @@ function AssociateHospital() {
   async function associate(g_id) {
     try {
       await axios.post(
-        `http://localhost:3001/hospitals/${profile.id}?g_id=${g_id}`
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals/${profile.id}?g_id=${g_id}`
       );
       setProfile(null);
       setLoaded(true);
@@ -82,7 +82,7 @@ function AssociateHospital() {
       retryCount++;
       try {
         const res = await axios.get(
-          `http://localhost:3001/hospitals/email/${currentUser.email}`
+          `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals/email/${currentUser.email}`
         );
         setProfile(res.data);
         return res.data;
@@ -97,7 +97,7 @@ function AssociateHospital() {
   async function getHospitals(longitude, latitude) {
     try {
       const res = await axios.get(
-        `http://localhost:3001/locations/hospitals?longitude=${longitude}&latitude=${latitude}`
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/locations/hospitals?longitude=${longitude}&latitude=${latitude}`
       );
       setHospitals(res.data);
       setLoaded(true);
