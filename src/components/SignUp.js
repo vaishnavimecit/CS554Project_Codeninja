@@ -134,11 +134,13 @@ function SignUp() {
       name,
       city,
       state,
+      phone,
       zip,
       cases,
       weeks,
       urgency,
       email,
+      instructions,
       passwordOne,
       passwordTwo,
     } = e.target.elements;
@@ -188,21 +190,36 @@ function SignUp() {
       });
     }
 
+    const newHospital = {
+      name: name.value,
+      city: city.value,
+      state: state.value,
+      urgency: urgency.value,
+      requestedItems: requestedItems,
+      stats: {
+        cases: parseInt(cases.value),
+        weeksOfPpe: parseInt(weeks.value),
+      },
+      zip: zip.value,
+    };
+
+    if (phone.value.trim() !== "") {
+      if (phone.value.length < 8 || phone.value.length > 12) {
+        setMessage(generateAlert("Invalid Phone Number.", "danger"));
+        return false;
+      } else {
+        newHospital.phone = parseInt(phone.value);
+      }
+    }
+
+    if (instructions.value.trim() !== "") {
+      newHospital.instructions = instructions.value.trim();
+    }
+
     setValidated(true);
 
     try {
-      await createHospital(email.value, passwordOne.value, {
-        name: name.value,
-        city: city.value,
-        state: state.value,
-        urgency: urgency.value,
-        requestedItems: requestedItems,
-        stats: {
-          cases: parseInt(cases.value),
-          weeksOfPpe: parseInt(weeks.value),
-        },
-        zip: zip.value,
-      });
+      await createHospital(email.value, passwordOne.value, newHospital);
     } catch (error) {
       if (typeof error === "string") {
         setMessage(generateAlert(error, "danger"));
@@ -219,7 +236,7 @@ function SignUp() {
 
   if (currentUser) {
     if (otherType === "Donor") {
-      return <Redirect to="/hospitals/set_gid" />;
+      return <Redirect to="/associatehospital" />;
     } else {
       return <Redirect to="/" />;
     }
@@ -490,6 +507,17 @@ function SignUp() {
         >
           Add Row
         </Button>
+        <Row>
+          <Col>
+            <Form.Label>Additional Instructions</Form.Label>
+            <Form.Control
+              placeholder="Provide any additional instructions/information to make the donation process easier for donors. (optional)"
+              required
+              type="textarea"
+              name="instructions"
+            />
+          </Col>
+        </Row>
         <hr></hr>
         <Row>
           <Col>
@@ -553,7 +581,7 @@ function SignUp() {
   return (
     <div>
       {message}
-      <Button variant="outline-info" size="lg" block onClick={switchForm}>
+      <Button variant="info" size="lg" block onClick={switchForm}>
         Switch to {otherType} Sign Up
       </Button>
       <Card>

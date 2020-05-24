@@ -23,6 +23,7 @@ router.post("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const g_id = req.query.g_id;
+    const address = req.query.address;
     if (!id || !g_id) {
       throw new Error("Missing required prameters id/g_id");
     }

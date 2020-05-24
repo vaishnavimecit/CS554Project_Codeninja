@@ -132,7 +132,7 @@ class Contact extends Component {
             </FormGroup>
 
             <Button className="cnt-btn" type="submit">
-              Click me to send
+              Send Email
             </Button>
             <br />
             <br />

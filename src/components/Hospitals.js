@@ -216,7 +216,7 @@ function Hospitals() {
             name="zip"
           />
           <InputGroup.Append>
-            <Button variant="outline-success" type="submit">
+            <Button variant="success" type="submit">
               Search
             </Button>
           </InputGroup.Append>
@@ -225,6 +225,9 @@ function Hospitals() {
 
       <hr></hr>
       {content}
+      <footer class="footer">
+        2020 &#169; Stevens Institute of Technology
+      </footer>
     </div>
   );
 }

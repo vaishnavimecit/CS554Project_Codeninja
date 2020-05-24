@@ -53,7 +53,9 @@ class Home extends Component {
             );
           })}
         </Slider>
-        
+        <div>
+          <h1>Visit to our FAQ page to learn how you can help!</h1>
+        </div>
       </div>
     );
   }

@@ -59,6 +59,9 @@ const schema = {
       },
     },
     id: { type: "string", optional: true },
+    address: { type: "string", optional: true },
+    instructions: { type: "string", optional: true },
+    phone: { type: "number", optional: true },
   },
 };
 
@@ -79,14 +82,14 @@ async function getAll() {
   }
 }
 
-async function updateGoogleId(id, g_id) {
+async function updateGoogleId(id, g_id, address) {
   if (!id || !g_id) {
     throw new Error("Missing required fields to update google id");
   }
   try {
     const client = await firebaseUtils.getClient();
     const ref = client.collection("hospitals").doc(id);
-    await ref.update({ google_id: g_id });
+    await ref.update({ google_id: g_id, address: address });
     const data = await ref.get();
     return { id, ...data.data() };
   } catch (e) {
@@ -204,7 +207,7 @@ async function createNew(newHospitalObj) {
   }
   delete newHospitalObj.id;
   const geo = await axios.get(
-    `http://localhost:3001/locations/coordinates/${newHospitalObj.zip}`
+    `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/locations/coordinates/${newHospitalObj.zip}`
   );
   newHospitalObj.location = new firebase.firestore.GeoPoint(
     geo.data.latitude,

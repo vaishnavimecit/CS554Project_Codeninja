@@ -35,10 +35,10 @@ function AssociateHospital() {
     return <Alert variant={variant}>{message}</Alert>;
   }
 
-  async function associate(g_id) {
+  async function associate(g_id, addr) {
     try {
       await axios.post(
-        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals/${profile.id}?g_id=${g_id}`
+        `https://make-a-changebackend-lkskcm7koq-uc.a.run.app/hospitals/${profile.id}?g_id=${g_id}&address=${addr}`
       );
       setProfile(null);
       setLoaded(true);
@@ -61,7 +61,10 @@ function AssociateHospital() {
           <Card.Body>
             <Card.Title>{hosp.name}</Card.Title>
             <Card.Text>{hosp.address}</Card.Text>
-            <Button variant="primary" onClick={() => associate(hosp.google_id)}>
+            <Button
+              variant="primary"
+              onClick={() => associate(hosp.google_id, hosp.address)}
+            >
               This is Me!
             </Button>
           </Card.Body>
