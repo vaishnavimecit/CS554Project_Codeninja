@@ -8,10 +8,10 @@ Hosted at https://make-a-changeweb-lkskcm7koq-uc.a.run.app/
 Our main goal is to implement a dashboard for Covid-19 crisis in which we help connect hospitals & donors. It is a single page application that runs multiple web servers and processes. This page will have private and public content. The dashboard can be viewed by the public. The logged-in users can donate to the crisis’ relief funds, donors can donate based on their city, hospitals can post their clinic needs like PPE, and contact the admin about the their concerns & questions. The administrator will be able to Create, Read, Update and Delete entries and manage the database. The data will be gathered from various sources on the net, as well as having the ability for users to input data manually that will be stored in the database and integrated with the outside data streams into our User Interface. 
 
 ## Group Members
-● Adam Undus (10420747) 
-● Sri Harsha Varma Konda (10445521) 
-● Sushil Saladi (10434422) 
-● Vaishnavi Gopalakrishnan (10444180) 
+● Adam Undus 
+● Sri Harsha Varma Konda 
+● Sushil Saladi
+● Vaishnavi Gopalakrishnan 
 
 ## Course Technologies 
 ● React JS: It will be used as our web application framework for better rendering. Our component library to manage different parts of the UI. 
