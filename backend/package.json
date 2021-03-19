@@ -23,7 +23,7 @@
     "express-session": "^1.17.1",
     "firebase-admin": "^8.10.0",
     "redis": "^3.0.2",
-    "schema-inspector": "^1.6.9",
+    "schema-inspector": "^2.0.0",
     "uuid": "^7.0.3"
   }
 }
